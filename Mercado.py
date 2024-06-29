@@ -33,7 +33,7 @@ def menuCliente():
     print("0 - Sair")
     print("-"*35)
 
-logar = input("Está logando como adm ou cLiente?: ")
+logar = input("Está logando como ADM ou Cliente?: ").lower()
 
 while True:
     if logar == "adm":
@@ -41,13 +41,13 @@ while True:
         opcao = input("Oque deseja fazer?: ")
         if opcao == "1":
             produtos = {}
-            produtos["código"] = int(input("código do Produto: "))
             produtos["nome"] = input("Nome do Produto: ")
             produtos["quantidade"] = int(input("quantidade do Produto: "))
+            produtos["preço"] = int(input("Preço R$: "))            
             estoque.append(produtos)
 
         elif opcao == "2":
-            add_remover = input("Deseja adicionar ou remover: ")
+            add_remover = input("Deseja Adicionar ou Remover: ").lower()
             if add_remover == "adicionar":
                 nome_produto = input("Digite o nome: ")
                 for i in estoque:
@@ -62,21 +62,21 @@ while True:
                                 i["quantidade"] -= remover_quantidade
             elif add_remover == "remover":
                 nome_produto = input("Digite o nome: ")
-                for i in estoque:
-                    
+                for i, produtos in estoque:
+                    print(i, produtos)
 
+        elif opcao == "3":
+            for i in estoque:
+                print(i)
 
-
-
-
-            
-
-    elif logar == "cliente":
-        menuCliente()
-
-    else:
-        print("Opção inválida")
-
+'''elif atualizar == "Remover":
+        nome_produto = input("Digite o produto que quer remover: ")
+        for i, produto in enumerate(estoque): 
+            if produto["nome"] == nome_produto:                
+                del estoque[i] 
+                print(f"O produto {nome_produto} foi deletado com sucesso")
+            else:
+                print(f"O produto {nome_produto} não encontrado")'''
 
 
 
