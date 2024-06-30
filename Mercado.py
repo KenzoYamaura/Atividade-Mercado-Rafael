@@ -1,25 +1,14 @@
-def menuADM():
-    print("-"*35)
-    print("1 - Cadastrar Usuário")
-    print("2 - Adicionar Produto")
-    print("3 - Atualizar Estoque")
-    print("4 - Listar Estoque")
-    print("0 - Sair")
-    print("-"*35)
-    
-def menuCliente():
-    print("-"*35)
-    print("1 - Adicionar ao Carrinho")
-    print("2 - Remover do Carrinho")
-    print("3 - Visualizar Carrinho")
-    print("4 - Efetuar Pagamento")
-    print("0 - Sair")
-    print("-"*35)
+print("Mercadin")
 
-print("Mercadinho")
+cadastros = [
+    {"user": "admin", "senha": "112233", "email": "admin@example.com"},
+    {"user": "cliente", "senha": "123", "email": "cliente@example.com"}
+]
 
-cadastros = [{"user": "admin", "senha": "112233", "email": "admin@example.com"}]
 carrinho = []
+
+historico_compras = []
+
 estoque = [
     {"nome": "arroz", "descricao": "Arroz branco, pacote de 1kg", "quantidade": 50, "preco R$": 5.00},
     {"nome": "feijao", "descricao": "Feijão preto, pacote de 1kg", "quantidade": 30, "preco R$": 6.50},
@@ -32,7 +21,24 @@ estoque = [
     {"nome": "biscoito", "descricao": "Biscoito de maisena, pacote de 200g", "quantidade": 35, "preco R$": 2.50},
     {"nome": "detergente", "descricao": "Detergente líquido, frasco de 500ml", "quantidade": 15, "preco R$": 1.50}
 ]
-historico_compras = []
+
+def menuCliente():
+    print("-"*35)
+    print("1 - Adicionar ao Carrinho")
+    print("2 - Remover do Carrinho")
+    print("3 - Visualizar Carrinho")
+    print("4 - Efetuar Pagamento")
+    print("0 - Sair")
+    print("-"*35)
+
+def menuADM():
+    print("-"*35)
+    print("1 - Cadastrar Usuário")
+    print("2 - Adicionar Produto")
+    print("3 - Atualizar Estoque")
+    print("4 - Listar Estoque")
+    print("0 - Sair")
+    print("-"*35)
 
 def adicionarProduto():
     produtos = {}
@@ -96,13 +102,22 @@ def adicionarAoCarrinho():
         if produto["nome"] == nome_produto:
             quantidade = int(input("Digite quantos deseja: "))
             if quantidade <= produto["quantidade"]:
-                carrinho.append({"nome": nome_produto, "descrição": produto["preco"], "quantidade": quantidade, "preco": produto["preco R$"]})
+                carrinho.append({"nome": nome_produto, "descrição": produto["preco R$"], "quantidade": quantidade, "preco": produto["preco R$"]})
                 produto["quantidade"] -= quantidade
                 print(f"{quantidade} {nome_produto} adicionado ao carrinho")
             else:
                 print("Quantidade insuficiente no estoque.")
             return
     print(f"Produto '{nome_produto}' Não encontrado no estoque")
+
+def removerDoCarrinho():
+    nome_produto = input("Deseja remover qual produto do carrinho?: ")
+    for produto in estoque:
+        if produto["nome"] == nome_produto:
+            carrinho.remove(produto)
+            print(f"Produto '{nome_produto}' removido do carrinho.")
+            return
+    print(f"Produto '{nome_produto}' não está no carrinho.")
 
 def visualizarCarrinho():
     if not carrinho:
@@ -113,7 +128,25 @@ def visualizarCarrinho():
             print(i)
         total = sum(item["quantidade"] * item["preco"] for item in carrinho)
         print(f"Total da compra: R$ {total:.2f}")
-        
+
+def pagamento(usuario):
+    if not carrinho:
+        print("O carrinho está vazio")
+        return
+    visualizarCarrinho()
+    confirmar = input("Deseja finalizar a compra? S/N ").strip().lower()
+    if confirmar == "s":
+        historico_compras.append({"usuario": usuario["user"], "Carrinho": carrinho.copy()})
+        carrinho.clear()
+        print("Pagamento efetuado com sucesso. Carrinho esvaziado")
+    else:
+        print("Compra não finalizada.")
+
+def exibirHistoricoDeCompra(usuario):
+    print("Histórico de Compra")
+    for compra in historico_compras:
+        if compra["usuario"] == usuario["user"]:
+            print(compra["carrinho"])
 
 logar = input("Está logando como ADM ou Cliente?: ").lower()
 
@@ -136,7 +169,29 @@ while True:
             adicionarRemover()
 
         elif opcao == "4":
+            print("Estoque")
             for i in estoque:
                 print(i)
-        
-        
+    
+    elif logar == "cliente":
+        usuario = login()
+        while True:
+            menuCliente()
+            opcao = input("Oque deseja fazer?: ")
+
+            if opcao == "0":
+                print("Saindo do sistema...")
+                break
+            elif opcao == "1":
+                adicionarAoCarrinho()
+            elif opcao == "2":
+                removerDoCarrinho()
+            elif opcao == "3":
+                visualizarCarrinho()
+            elif opcao == "4":
+                pagamento(usuario)        
+            elif opcao == "5":
+                exibirHistoricoDeCompra(usuario)
+    else:
+        print("Opção inválida.")
+        logar = input("Está logando como ADM ou Cliente?: ").lower()
