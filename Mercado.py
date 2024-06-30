@@ -104,6 +104,16 @@ def adicionarAoCarrinho():
             return
     print(f"Produto '{nome_produto}' Não encontrado no estoque")
 
+def visualizarCarrinho():
+    if not carrinho:
+        print("O carrinho está vazio.")
+    else:
+        print("Carrinho:")
+        for i in carrinho:
+            print(i)
+        total = sum(item["quantidade"] * item["preco"] for item in carrinho)
+        print(f"Total da compra: R$ {total:.2f}")
+        
 
 logar = input("Está logando como ADM ou Cliente?: ").lower()
 
