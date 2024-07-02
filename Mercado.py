@@ -55,27 +55,27 @@ def adicionarRemover():
         nome_produto = input("Digite o nome: ")
         for produto in estoque:
             if produto["nome"] == nome_produto:
-                add_quantidade = int(input("Insira a nova quantidade para o estoque: "))
+                add_quantidade = int(input("Digite a quantia: "))
                 produto["quantidade"] += add_quantidade
-                print(f"Quantidade atualizada")
+                print(f"Quantidade atualizada para {produto['quantidade']}")
                 return
-        print(f"Produto {nome_produto} não encontrado")
+        print(f"Produto {nome_produto} não encontrado no estoque.")
     
     elif add_remover == "remover":
         nome_produto = input("Digite o nome do produto: ")
         for i, produto in enumerate(estoque):
             if produto["nome"] == nome_produto:
-                remover_quantidade = int(input("Digite a quantidade a ser removida: "))
+                remover_quantidade = int(input("Digite a quantia: "))
                 if remover_quantidade >= produto["quantidade"]:
                     estoque.pop(i)
-                    print(f"Produto '{nome_produto}' removido do estoque")
+                    print(f"Produto '{nome_produto}' removido do estoque.")
                 else:
                     produto["quantidade"] -= remover_quantidade
-                    print(f"Quantidade atualizada")
+                    print(f"Quantidade atualizada para {produto['quantidade']}")
                 return
-            print(f"Produto '{nome_produto}' Não localizado")
+        print(f"Produto '{nome_produto}' não localizado no estoque.")
     else:
-        print("Opção Inválida. Digite 'adicionar' ou 'remover'")
+        print("Opção Inválida. Digite 'adicionar' ou 'remover'.")
 
 def cadastrar():
     aux = {}
@@ -111,12 +111,17 @@ def adicionarAoCarrinho():
     print(f"Produto '{nome_produto}' Não encontrado no estoque")
 
 def removerDoCarrinho():
-    nome_produto = input("Deseja remover qual produto do carrinho?: ")
-    for produto in estoque:
-        if produto["nome"] == nome_produto:
-            carrinho.remove(produto)
-            print(f"Produto '{nome_produto}' removido do carrinho.")
-            return
+    contadora = 1
+    for i in carrinho:
+        print(f"{contadora} - {i['nome']} - R$ {i['preco']}")  
+        contadora += 1  
+    nome_produto = input("Qual Produto deseja remover?: ")
+    for produto in estoque:        
+            if produto["nome"] == nome_produto:
+                codigo = int(input("Digite um codigo para remover: "))
+                carrinho.pop(codigo)
+                print(f"Produto '{nome_produto}' removido do carrinho.")
+                return
     print(f"Produto '{nome_produto}' não está no carrinho.")
 
 def visualizarCarrinho():
@@ -152,6 +157,7 @@ logar = input("Está logando como ADM ou Cliente?: ").lower()
 
 while True:
     if logar == "adm":
+        usuario = login()
         menuADM()
         opcao = input("Oque deseja fazer?: ")
 
