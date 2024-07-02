@@ -112,9 +112,9 @@ def adicionarAoCarrinho():
     print(f"Produto '{nome_produto}' Não encontrado no estoque")
 
 def removerDoCarrinho():
-    contadora = 1
+    cont = 1
     for i in carrinho:
-        print(f"{contadora} - {i['nome']} - R$ {i['preco']}")  
+        print(f"{cont} - {i['nome']} - R$ {i['preco']}")  
         contadora += 1  
     nome_produto = input("Qual Produto deseja remover?: ")
     for produto in estoque:        
@@ -130,9 +130,10 @@ def visualizarCarrinho():
         print("O carrinho está vazio.")
     else:
         print("Carrinho:")
-        for i in carrinho:
-            print(i)
-        total = sum(item["quantidade"] * item["preco"] for item in carrinho)
+        total = 0
+        for item in carrinho:
+            print(item)
+            total += item["quantidade"] * item["preco"]            
         print(f"Total da compra: R$ {total:.2f}")
 
 def pagamento(usuario):
