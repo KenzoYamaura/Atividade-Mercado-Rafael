@@ -28,6 +28,7 @@ def menuCliente():
     print("2 - Remover do Carrinho")
     print("3 - Visualizar Carrinho")
     print("4 - Efetuar Pagamento")
+    print("5 - Exibir histórico")
     print("0 - Sair")
     print("-"*35)
 
@@ -151,7 +152,7 @@ def exibirHistoricoDeCompra(usuario):
     print("Histórico de Compra")
     for compra in historico_compras:
         if compra["usuario"] == usuario["user"]:
-            print(compra["carrinho"])
+            print(compra)
 
 logar = input("Está logando como ADM ou Cliente?: ").lower()
 
