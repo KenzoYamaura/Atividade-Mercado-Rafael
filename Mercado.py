@@ -157,49 +157,44 @@ def exibirHistoricoDeCompra(usuario):
 
 logar = input("Está logando como ADM ou Cliente?: ").lower()
 
+usuario = login()
 while True:
     if logar == "adm":
-        usuario = login()
         menuADM()
         opcao = input("Oque deseja fazer?: ")
 
         if opcao == "0":
             print("Saindo do sistema...")
             break
-
         elif opcao == "1":
             cadastrar()
-
         elif opcao == "2":
             adicionarProduto()
-
         elif opcao == "3":
             adicionarRemover()
-
         elif opcao == "4":
             print("Estoque")
             for i in estoque:
                 print(i)
     
     elif logar == "cliente":
-        usuario = login()
-        while True:
-            menuCliente()
-            opcao = input("Oque deseja fazer?: ")
+        menuCliente()
+        opcao = input("Oque deseja fazer?: ")
 
-            if opcao == "0":
-                print("Saindo do sistema...")
-                break
-            elif opcao == "1":
-                adicionarAoCarrinho()
-            elif opcao == "2":
-                removerDoCarrinho()
-            elif opcao == "3":
-                visualizarCarrinho()
-            elif opcao == "4":
-                pagamento(usuario)        
-            elif opcao == "5":
-                exibirHistoricoDeCompra(usuario)
+        if opcao == "0":
+            print("Saindo do sistema...")
+            break
+        elif opcao == "1":
+            adicionarAoCarrinho()
+        elif opcao == "2":
+            removerDoCarrinho()
+        elif opcao == "3":
+            visualizarCarrinho()
+        elif opcao == "4":
+            pagamento(usuario)        
+        elif opcao == "5":
+            exibirHistoricoDeCompra(usuario)
     else:
         print("Opção inválida.")
         logar = input("Está logando como ADM ou Cliente?: ").lower()
+    
