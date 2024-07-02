@@ -1,14 +1,11 @@
 print("Mercadin")
 
+carrinho = []
+historico_compras = []
 cadastros = [
     {"user": "admin", "senha": "112233", "email": "admin@example.com"},
     {"user": "cliente", "senha": "123", "email": "cliente@example.com"}
 ]
-
-carrinho = []
-
-historico_compras = []
-
 estoque = [
     {"nome": "arroz", "descricao": "Arroz branco, pacote de 1kg", "quantidade": 50, "preco R$": 5.00},
     {"nome": "feijao", "descricao": "Feijão preto, pacote de 1kg", "quantidade": 30, "preco R$": 6.50},
@@ -115,11 +112,11 @@ def removerDoCarrinho():
     cont = 1
     for i in carrinho:
         print(f"{cont} - {i['nome']} - R$ {i['preco']}")  
-        contadora += 1  
+        cont += 1  
     nome_produto = input("Qual Produto deseja remover?: ")
     for produto in estoque:        
             if produto["nome"] == nome_produto:
-                codigo = int(input("Digite um codigo para remover: "))
+                codigo = int(input("Digite um codigo para remover: ")) - 1
                 carrinho.pop(codigo)
                 print(f"Produto '{nome_produto}' removido do carrinho.")
                 return
