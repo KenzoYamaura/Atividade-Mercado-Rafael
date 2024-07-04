@@ -3,8 +3,8 @@ print("Mercadin")
 carrinho = []
 historico_compras = []
 cadastros = [
-    {"user": "admin", "senha": "112233", "email": "admin@example.com"},
-    {"user": "cliente", "senha": "123", "email": "cliente@example.com"}
+    {"email": "admin@exemplo.com", "user": "admin", "senha": "112233"},
+    {"email": "cliente@exemplo.com", "user": "cliente", "senha": "123"}
 ]
 estoque = [
     {"nome": "arroz", "descricao": "Arroz branco, pacote de 1kg", "quantidade": 50, "preco R$": 5.00},
@@ -32,9 +32,10 @@ def menuCliente():
 def menuADM():
     print("-"*35)
     print("1 - Cadastrar Usuário")
-    print("2 - Adicionar Produto")
-    print("3 - Atualizar Estoque")
-    print("4 - Listar Estoque")
+    print("2 - Visualizar Usuário")
+    print("3 - Adicionar Produto")
+    print("4 - Atualizar Estoque")
+    print("5 - Listar Estoque")
     print("0 - Sair")
     print("-"*35)
 
@@ -78,10 +79,14 @@ def adicionarRemover():
 def cadastrar():
     aux = {}
     aux["email"] = input("Insira seu E-mail: ")
-    aux["nome"] = input("Seu Nome: ")
+    aux["user"] = input("Seu Nome: ")
     aux["senha"] = input("Sua Senha: ")
     cadastros.append(aux)
     return aux
+
+def visualizarCadastro():
+    for i in cadastros:
+        print(i)
 
 def login():
     while True:
@@ -150,7 +155,7 @@ def exibirHistoricoDeCompra(usuario):
     print("Histórico de Compra")
     for compra in historico_compras:
         if compra["usuario"] == usuario["user"]:
-            print(compra)
+            print(f"{compra}")
 
 logar = input("Está logando como ADM ou Cliente?: ").lower()
 
@@ -166,10 +171,12 @@ while True:
         elif opcao == "1":
             cadastrar()
         elif opcao == "2":
-            adicionarProduto()
+            visualizarCadastro()
         elif opcao == "3":
-            adicionarRemover()
+            adicionarProduto()
         elif opcao == "4":
+            adicionarRemover()
+        elif opcao == "5":
             print("Estoque")
             for i in estoque:
                 print(i)
