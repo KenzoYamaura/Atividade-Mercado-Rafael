@@ -1,3 +1,4 @@
+from pprint import pprint
 print("Mercadin")
 
 carrinho = []
@@ -46,7 +47,7 @@ def adicionarProduto():
     produtos["quantidade"] = int(input("quantidade do Produto: "))
     produtos["preço R$"] = int(input("Preço R$: "))            
     estoque.append(produtos)
-    print(f"Produto '{produtos['nome']}' adicionado com sucesso")
+    pprint(f"Produto '{produtos['nome']}' adicionado com sucesso")
 
 def adicionarRemover():
     add_remover = input("Deseja Adicionar ou Remover: ").lower()
@@ -85,8 +86,7 @@ def cadastrar():
     return aux
 
 def visualizarCadastro():
-    for i in cadastros:
-        print(i)
+    pprint(cadastros)
 
 def login():
     while True:
@@ -140,7 +140,7 @@ def visualizarCarrinho():
 
 def pagamento(usuario):
     if not carrinho:
-        print("O carrinho está vazio")
+        pprint("O carrinho está vazio")
         return
     visualizarCarrinho()
     confirmar = input("Deseja finalizar a compra? S/N ").strip().lower()
@@ -166,7 +166,7 @@ while True:
         opcao = input("Oque deseja fazer?: ")
 
         if opcao == "0":
-            print("Saindo do sistema...")
+            pprint("Saindo do sistema...")
             break
         elif opcao == "1":
             cadastrar()
@@ -177,7 +177,7 @@ while True:
         elif opcao == "4":
             adicionarRemover()
         elif opcao == "5":
-            print("Estoque")
+            print("Estoque: ")
             for i in estoque:
                 print(i)
     
